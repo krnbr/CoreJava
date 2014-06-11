@@ -145,3 +145,141 @@ audit
 	
 	
 }
+
+
+package com.optimantra;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+public class GoogleSearch {
+
+	
+	static WebDriver driver;
+    static Wait<WebDriver> wait;
+
+    public static void main(String[] args) throws IOException {
+    	System.setProperty("webdriver.chrome.driver", "E://chromedriver.exe");
+    	ChromeOptions options = new ChromeOptions();
+    	options.addArguments("--start-maximized");
+    	options.addArguments("--test-type");
+    	driver = new ChromeDriver(options);
+        
+        wait = new WebDriverWait(driver, 10);
+        driver.get("http://localhost:5353/optimus/om/public/welcome");
+
+        boolean result;
+        try {
+            result = firstPageContainsQAANet();
+        } catch(Exception e) {
+            e.printStackTrace();
+            result = false;
+        } finally {
+        	BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        	String s = "";
+        	/*do{
+        		 s = bufferedReader.readLine();
+        	}*/
+        	s = bufferedReader.readLine();
+        	while(!(s.equalsIgnoreCase("quit"))){
+        		s = bufferedReader.readLine();
+        	}
+        	driver.close();
+        }
+
+        //System.out.println("Test " + (result? "passed." : "failed."));
+        /*if (!result) {*/
+            System.exit(1);
+        /*}*/
+        
+    }
+
+    private static boolean firstPageContainsQAANet() {
+        //type search query
+        //driver.findElement(By.name("q")).sendKeys("fb");
+
+        driver.findElement(By.className("userlogin-link")).click();
+        
+        // click search
+        //driver.findElement(By.name("btnG")).click();
+        for(int i = 0; i < 500; i++){
+        	System.out.print("*");
+        }
+        driver.findElement(By.id("j_username")).sendKeys("ksingh3@seasiainfotech.com");
+        driver.findElement(By.id("j_password")).sendKeys("test123");
+        
+        driver.findElement(By.id("logmein")).click();
+        driver.findElement(By.id("sgn")).click();
+        //driver.findElement(By.linkText("ADMIN")).click();
+        
+        //driver.findElement(By.id("logmein")).click();
+        
+        List<WebElement> w = driver.findElements( By.cssSelector("#home-dropmenu ul li a"));
+
+        for(WebElement s1: w)
+        {
+            String s2= s1.getText();
+            System.out.println(s2);
+
+            if(s2.contentEquals("Admin"))
+            {
+                s1.click();   
+                break;
+            }
+        }
+        //driver.findElement(By.cssSelector("#home-dropmenu ul li a:firstchild")).click();
+        driver.findElement(By.className("abcde")).click();
+        
+        driver.findElement(By.linkText("Email Templates")).click();
+        
+        // Wait for search to complete
+        wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver webDriver) {
+                System.out.println("Searching ...");
+                //return webDriver.findElement(By.id("resultStats")) != null;
+                return true;
+            }
+        });
+
+        // Look for QAAutomation.net in the results
+        return true;
+    }
+}
+
+
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.seleniumhq.selenium</groupId>
+    	<artifactId>selenium-server</artifactId>
+    	<version>2.42.2</version>
+    </dependency>
+    <!-- <dependency>
+    	<groupId>org.seleniumhq.selenium</groupId>
+    	<artifactId>selenium-chrome-driver</artifactId>
+    	<version>2.42.2</version>
+    </dependency> -->
+    <dependency>
+    	<groupId>org.seleniumhq.selenium</groupId>
+    	<artifactId>selenium-java</artifactId>
+    	<version>2.42.2</version>
+    </dependency>
+  </dependencies>
