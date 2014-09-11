@@ -1,31 +1,30 @@
 package com.core.java.util.collection.list;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.core.java.util.P;
 
 public class Class01List {
 
 	public static void main(String[] args) {
 		
 		List<Integer> listOfIntegers = new CopyOnWriteArrayList<Integer>();
-		System.out.println("values in order of insertion are:-");
+		P.p("values in order of insertion are:-");
 		for (int i = 0; i < 10; i++) {
 			int temp = new Integer((int)((Math.random()*100)))+i;
-			System.out.println("Integer at position ---> "+(i+1)+" is ---> "+temp);
+			P.p("Integer at position ---> "+(i+1)+" is ---> "+temp);
 			listOfIntegers.add(temp);
 		}
 		
 		for (Iterator<Integer> iterator = listOfIntegers.iterator(); iterator.hasNext();) {
 			Integer integer = (Integer) iterator.next();
-			System.out.println(integer);
+			P.p(integer);
 		}
-		SOP(listOfIntegers);
+		P.p(listOfIntegers);
 		listOfIntegers.removeAll(listOfIntegers.subList(0,3));
-		SOP(listOfIntegers);
-	}
-	
-	public static <T> void SOP(T t){
-		System.out.println(t);
+		P.p(listOfIntegers);
 	}
 	
 }
