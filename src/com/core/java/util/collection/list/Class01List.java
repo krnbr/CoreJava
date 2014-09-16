@@ -1,8 +1,8 @@
 package com.core.java.util.collection.list;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.core.java.util.P;
 
@@ -10,7 +10,7 @@ public class Class01List {
 
 	public static void main(String[] args) {
 		
-		List<Integer> listOfIntegers = new CopyOnWriteArrayList<Integer>();
+		List<Integer> listOfIntegers = new ArrayList<Integer>();
 		P.p("values in order of insertion are:-");
 		for (int i = 0; i < 10; i++) {
 			int temp = new Integer((int)((Math.random()*100)))+i;
